@@ -4,7 +4,14 @@ int main(void) {
 	logger = log_create("log.log", "Servidor", 1, LOG_LEVEL_DEBUG);
 
 	int server_fd = iniciar_servidor();
-	log_info(logger, "Servidor listo para recibir al cliente");
+	if (server_fd == -1) {
+    log_error(logger, "No se pudo iniciar el servidor. Revisá el bind/listen.");
+    return EXIT_FAILURE;
+	}
+log_info(logger, "Servidor listo para recibir al cliente");
+	
+	/*log_info(logger, "Servidor listo para recibir al cliente");
+	*/
 	int cliente_fd = esperar_cliente(server_fd);
 
 	t_list* lista;
